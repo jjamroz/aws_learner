@@ -1,4 +1,4 @@
-service: learner
+service: aws-learner
 
 plugins:
   - serverless-offline
@@ -14,7 +14,7 @@ provider:
   endpointType: regional
   environment:
     REGION: eu-central-1
-    SETS_TABLE: sets-${self:service}-${opt:stage, self:provider.stage}
+    SETS_TABLE: ${self:service}-sets-${opt:stage, self:provider.stage}
 
   iamRoleStatements:
     - Effect: Allow
