@@ -1,0 +1,22 @@
+{
+  "name": "aws_learner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjamroz/aws_learner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjamroz/aws_learner/issues"
+  },
+  "homepage": "https://github.com/jjamroz/aws_learner#readme",
+  "dependencies": {
+    "aws-sdk": "^2.614.0"
+  }
+}

@@ -1,0 +1,49 @@
+service: aws-learner
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-central-1
+  stage: dev
+  provider:
+  memorySize: 128
+  timeout: 5
+  endpointType: regional
+  environment:
+    SETS_TABLE: ${self:service}-sets-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:PutItem
+        - dynamodb:DeleteItem
+      Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.SETS_TABLE}'
+
+resources:
+  Resources:
+    LearnerSetsTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:provider.environment.SETS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: set_id
+            AttributeType: S
+          - AttributeName: user_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: set_id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+          - IndexName: user_id-index
+            KeySchema:
+              - AttributeName: set_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
