@@ -2,10 +2,10 @@
  * Route: GET /sets
  */
 
+const uuidv4 = require('uuid/v4');
+const responseHandler = require('../../utils/responseHandler');
 const AWS = require('aws-sdk');
 AWS.config.update({ region: process.env.REGION });
-
-const uuidv4 = require('uuid/v4');
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 const tableName = process.env.SETS_TABLE;

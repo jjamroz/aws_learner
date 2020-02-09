@@ -1,7 +1,7 @@
 /**
  * Route: DELETE /set/{set_id}
  */
-
+const responseHandler = require('../../utils/responseHandler');
 const AWS = require('aws-sdk');
 AWS.config.update({ region: process.env.REGION });
 

@@ -14,6 +14,9 @@ const error = err => {
 };
 
 const success = data => {
+  if (isErrorLoggerEnabled) {
+    console.log(data);
+  }
   return {
     statusCode: 200,
     body: JSON.stringify(data)
