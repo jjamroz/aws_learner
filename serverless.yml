@@ -73,7 +73,7 @@ resources:
           - AttributeName: set_id
             KeyType: HASH
           - AttributeName: user_id
-            KeyType: Range
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
