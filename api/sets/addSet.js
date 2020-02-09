@@ -13,17 +13,16 @@ const tableName = process.env.SETS_TABLE;
 exports.handler = async event => {
   console.log(event);
 
-  let { set_id, body } = event;
+  let item = JSON.parse(event.body);
+  item.set_id = uuidv4();
+  item.user_id = event.headers.app_user_id;
+
+  let params = {
+    TableName: tableName,
+    Item: item
+  };
 
   try {
-    let item = JSON.parse(body);
-    item.set_id = uuidv4();
-
-    let params = {
-      TableName: tableName,
-      Item: item
-    };
-
     let data = await dynamodb.put(params).promise();
 
     return {

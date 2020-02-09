@@ -1,5 +1,5 @@
 /**
- * Route: GET /set
+ * Route: POST /set
  */
 
 const AWS = require('aws-sdk');
@@ -13,19 +13,20 @@ const tableName = process.env.SETS_TABLE;
 exports.handler = async event => {
   console.log(event);
 
-  let set_id = event.pathParameters.set_id;
-  let user_id = event.headers.app_user_id;
+  let item = JSON.parse(event.body);
+  user_id = event.headers.app_user_id;
 
   let params = {
     TableName: tableName,
-    Key: {
-      set_id: set_id,
-      user_id: user_id
+    Item: item,
+    ConditionExpression: 'user_id = :id',
+    ExpressionAttributeValues: {
+      ':id': user_id
     }
   };
 
   try {
-    let data = await dynamodb.get(params).promise();
+    let data = await dynamodb.put(params).promise();
 
     return {
       statusCode: 200,
