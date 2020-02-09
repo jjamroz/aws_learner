@@ -69,8 +69,6 @@ resources:
             AttributeType: S
           - AttributeName: user_id
             AttributeType: S
-          - AttributeName: access
-            AttributeType: S
         KeySchema:
           - AttributeName: set_id
             KeyType: HASH
