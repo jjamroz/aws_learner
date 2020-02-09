@@ -33,6 +33,14 @@ functions:
           path: set
           method: post
 
+  update-set:
+    handler: api/sets/updateSet.handler
+    description: PATCH /set
+    events:
+      - http:
+          path: set
+          method: patch
+
   get-set:
     handler: api/sets/getSet.handler
     description: GET /set/
@@ -41,15 +49,15 @@ functions:
           path: set/{set_id}
           method: get
 
-  get-sets:
-    handler: api/sets/getSets.handler
-    description: GET /sets/{user_id}
+  delete-set:
+    handler: api/sets/deleteSet.handler
+    description: DELETE /set/
     events:
       - http:
-          path: sets/{user_id}
-          method: get
+          path: set/{set_id}
+          method: delete
 
-  get-sets-user:
+  get-sets:
     handler: api/sets/getSets.handler
     description: GET /sets/
     events:

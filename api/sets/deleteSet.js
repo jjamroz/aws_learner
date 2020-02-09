@@ -1,28 +1,27 @@
 /**
- * Route: POST /set
+ * Route: DELETE /set/{set_id}
  */
 
 const AWS = require('aws-sdk');
 AWS.config.update({ region: process.env.REGION });
 
-const uuidv4 = require('uuid/v4');
-
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 const tableName = process.env.SETS_TABLE;
 
 exports.handler = async event => {
-  let item = JSON.parse(event.body);
-  item.set_id = uuidv4();
-  item.user_id = event.headers.app_user_id;
-
+  let set_id = event.pathParameters.set_id;
+  user_id = event.headers.app_user_id;
   let params = {
     TableName: tableName,
-    Item: item
+    Key: {
+      set_id: set_id,
+      user_id: user_id
+    }
   };
 
   try {
-    let data = await dynamodb.put(params).promise();
-    return responseHandler.success(data);
+    await dynamodb.delete(params).promise();
+    return responseHandler.success();
   } catch (err) {
     return responseHandler.error(err);
   }
