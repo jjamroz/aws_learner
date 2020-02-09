@@ -1,4 +1,4 @@
-service: aws-learner
+service: learner
 
 plugins:
   - serverless-offline
@@ -78,12 +78,10 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         GlobalSecondaryIndexes:
-          - IndexName: access-user_id-index
+          - IndexName: user_id-index
             KeySchema:
-              - AttributeName: access
-                KeyType: HASH
               - AttributeName: user_id
-                KeyType: RANGE
+                KeyType: HASH
             Projection:
               ProjectionType: ALL
             ProvisionedThroughput:

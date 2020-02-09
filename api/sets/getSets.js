@@ -9,26 +9,20 @@ const uuidv4 = require('uuid/v4');
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 const tableName = process.env.SETS_TABLE;
-const indexName = 'access-user_id-index';
+const indexName = 'user_id-index';
 
 exports.handler = async event => {
   console.log(event);
 
-  let user_id = event.pathParameters;
-
-  let expression = 'access = :acc';
-  let values = { ':acc': 'public' };
-
-  if (user_id) {
-    expression = expression + ' AND user_id = :id';
-    values = { ':acc': 'private', ':id': user_id };
-  }
+  let user_id = event.headers.app_user_id;
 
   let query = {
     TableName: tableName,
     IndexName: indexName,
-    KeyConditionExpression: expression,
-    ExpressionAttributeValues: values
+    KeyConditionExpression: 'user_id = :id',
+    ExpressionAttributeValues: {
+      ':id': user_id
+    }
   };
 
   console.log(query);
