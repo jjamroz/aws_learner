@@ -15,6 +15,7 @@ provider:
   environment:
     REGION: eu-central-1
     SETS_TABLE: ${self:service}-sets-${opt:stage, self:provider.stage}
+    USERS_TABLE: ${self:service}-users-${opt:stage, self:provider.stage}
 
   iamRoleStatements:
     - Effect: Allow
@@ -24,6 +25,13 @@ provider:
         - dynamodb:PutItem
         - dynamodb:DeleteItem
       Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.SETS_TABLE}'
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:Query
+        - dynamodb:PutItem
+        - dynamodb:DeleteItem
+      Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}'
 
 functions:
   add-set:
@@ -96,3 +104,18 @@ resources:
             ProvisionedThroughput:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
+
+    LearnerUsersTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:provider.environment.USERS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
