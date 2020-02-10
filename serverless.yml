@@ -41,6 +41,9 @@ functions:
       - http:
           path: set
           method: post
+          request:
+            schema:
+              application/json: ${file(models/setModel.json)}
 
   update-set:
     handler: api/sets/updateSet.handler

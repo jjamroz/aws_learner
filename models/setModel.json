@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Learning Set Validation Model",
+  "type": "object",
+  "properties": {
+    "set_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "word": {
+            "type": "string"
+          },
+          "translation": {
+            "type": "string"
+          },
+          "pronunciation": {
+            "type": "string"
+          }
+        },
+        "required": ["word", "translation"]
+      }
+    }
+  },
+  "required": ["name", "category", "questions"]
+}
