@@ -12,9 +12,6 @@
     "category": {
       "type": "string"
     },
-    "user_id": {
-      "type": "string"
-    },
     "questions": {
       "type": "array",
       "items": {

@@ -52,6 +52,9 @@ functions:
       - http:
           path: set
           method: patch
+          request:
+            schema:
+              application/json: ${file(models/setModel.json)}
 
   get-set:
     handler: api/sets/getSet.handler
