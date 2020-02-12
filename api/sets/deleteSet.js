@@ -10,7 +10,7 @@ const tableName = process.env.SETS_TABLE;
 
 exports.handler = async event => {
   let set_id = event.pathParameters.set_id;
-  user_id = event.headers.app_user_id;
+  let user_id = event.headers.app_user_id;
   let params = {
     TableName: tableName,
     Key: {
