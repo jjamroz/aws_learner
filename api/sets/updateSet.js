@@ -9,22 +9,22 @@ const dynamodb = new AWS.DynamoDB.DocumentClient();
 const tableName = process.env.SETS_TABLE;
 
 exports.handler = async event => {
-  let item = JSON.parse(event.body);
-  let user_id = event.headers.app_user_id;
+  const item = JSON.parse(event.body);
+  item.user_id = event.headers.app_user_id;
 
-  let params = {
+  const params = {
     TableName: tableName,
     Item: item,
     ConditionExpression: 'user_id = :id',
     ExpressionAttributeValues: {
-      ':id': user_id
+      ':id': item.user_id
     }
   };
 
   try {
     await dynamodb.put(params).promise();
 
-    return responseHandler.success(data);
+    return responseHandler.success(item);
   } catch (err) {
     return responseHandler.error(err);
   }

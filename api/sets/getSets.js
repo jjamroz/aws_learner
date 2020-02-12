@@ -12,8 +12,8 @@ const tableName = process.env.SETS_TABLE;
 const indexName = 'user_id-index';
 
 exports.handler = async event => {
-  let user_id = event.headers.app_user_id;
-  let query = {
+  const user_id = event.headers.app_user_id;
+  const query = {
     TableName: tableName,
     IndexName: indexName,
     KeyConditionExpression: 'user_id = :id',
@@ -23,7 +23,7 @@ exports.handler = async event => {
   };
 
   try {
-    let data = await dynamodb.query(query).promise();
+    const data = await dynamodb.query(query).promise();
     return responseHandler.success(data);
   } catch (err) {
     return responseHandler.error(err);

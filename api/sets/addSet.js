@@ -11,11 +11,11 @@ const dynamodb = new AWS.DynamoDB.DocumentClient();
 const tableName = process.env.SETS_TABLE;
 
 exports.handler = async event => {
-  let item = JSON.parse(event.body);
+  const item = JSON.parse(event.body);
   item.set_id = uuidv4();
   item.user_id = event.headers.app_user_id;
 
-  let params = {
+  const params = {
     TableName: tableName,
     Item: item
   };

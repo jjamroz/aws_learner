@@ -12,9 +12,9 @@ const dynamodb = new AWS.DynamoDB.DocumentClient();
 const tableName = process.env.SETS_TABLE;
 
 exports.handler = async event => {
-  let set_id = event.pathParameters.set_id;
-  let user_id = event.headers.app_user_id;
-  let params = {
+  const set_id = event.pathParameters.set_id;
+  const user_id = event.headers.app_user_id;
+  const params = {
     TableName: tableName,
     Key: {
       set_id: set_id,
@@ -23,11 +23,12 @@ exports.handler = async event => {
   };
 
   try {
-    let data = await dynamodb.get(params).promise();
+    const data = await dynamodb.get(params).promise();
+    const set = data.Item;
 
-    return _.isEmpty(data)
+    return _.isEmpty(set)
       ? responseHandler.notFound()
-      : responseHandler.success(data);
+      : responseHandler.success(set);
   } catch (err) {
     return responseHandler.error(err);
   }
