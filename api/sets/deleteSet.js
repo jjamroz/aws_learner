@@ -1,5 +1,5 @@
 /**
- * Route: DELETE /set/{set_id}
+ * Route: DELETE /sets/{set_id}
  */
 const responseHandler = require('../../utils/responseHandler');
 const AWS = require('aws-sdk');
@@ -21,7 +21,7 @@ exports.handler = async event => {
 
   try {
     await dynamodb.delete(params).promise();
-    return responseHandler.success();
+    return responseHandler.success({ message: 'set deleted' });
   } catch (err) {
     return responseHandler.error(err);
   }

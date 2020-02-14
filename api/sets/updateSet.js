@@ -1,5 +1,5 @@
 /**
- * Route: PATCH /set
+ * Route: PATCH /sets
  */
 const responseHandler = require('../../utils/responseHandler');
 const AWS = require('aws-sdk');

@@ -36,10 +36,10 @@ provider:
 functions:
   add-set:
     handler: api/sets/addSet.handler
-    description: POST /set
+    description: POST /sets
     events:
       - http:
-          path: set
+          path: sets
           method: post
           request:
             schema:
@@ -47,10 +47,10 @@ functions:
 
   update-set:
     handler: api/sets/updateSet.handler
-    description: PATCH /set
+    description: PATCH /sets
     events:
       - http:
-          path: set
+          path: sets
           method: patch
           request:
             schema:
@@ -58,18 +58,18 @@ functions:
 
   get-set:
     handler: api/sets/getSet.handler
-    description: GET /set/
+    description: GET /sets/{set_id}
     events:
       - http:
-          path: set/{set_id}
+          path: sets/{set_id}
           method: get
 
   delete-set:
     handler: api/sets/deleteSet.handler
-    description: DELETE /set/
+    description: DELETE /sets/{set_id}
     events:
       - http:
-          path: set/{set_id}
+          path: sets/{set_id}
           method: delete
 
   get-sets:

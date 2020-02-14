@@ -24,7 +24,7 @@ exports.handler = async event => {
 
   try {
     const data = await dynamodb.query(query).promise();
-    return responseHandler.success(data);
+    return responseHandler.success(data.Items);
   } catch (err) {
     return responseHandler.error(err);
   }

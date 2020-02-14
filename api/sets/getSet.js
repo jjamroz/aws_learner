@@ -1,5 +1,5 @@
 /**
- * Route: GET /set/{set_id}
+ * Route: GET /sets/{set_id}
  */
 
 const uuidv4 = require('uuid/v4');

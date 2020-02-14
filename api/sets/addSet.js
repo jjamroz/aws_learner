@@ -1,5 +1,5 @@
 /**
- * Route: POST /set
+ * Route: POST /sets
  */
 
 const uuidv4 = require('uuid/v4');
