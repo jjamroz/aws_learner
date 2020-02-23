@@ -13,17 +13,17 @@ test('should get sets for user', async done => {
   const lambda = require('../api/sets/getSets');
 
   const res = await lambda.handler(event);
-  const items = JSON.parse(res.body);
+  const sets = JSON.parse(res.body);
 
   expect(res.statusCode).toEqual(200);
   // tbd... waiting for test db
   // expect(items.length).toEqual(9);
-  items.forEach(i => {
-    expect(i).toHaveProperty('set_id');
-    expect(i).toHaveProperty('user_id');
-    expect(i).toHaveProperty('questions');
-    expect(i).toHaveProperty('category');
-    expect(i).toHaveProperty('name');
+  sets.forEach(set => {
+    expect(set).toHaveProperty('set_id');
+    expect(set).toHaveProperty('user_id');
+    expect(set).toHaveProperty('questions');
+    expect(set).toHaveProperty('category');
+    expect(set).toHaveProperty('name');
   });
   done();
 });
@@ -84,8 +84,6 @@ test('should add new set', async done => {
 
   const res = await lambda.handler(event);
   const addedSet = JSON.parse(res.body);
-  // to be determined if its the way
-  addedSetId = addedSet.set_id;
 
   expect(res.statusCode).toEqual(200);
   expect(addedSet).toMatchObject(set);
